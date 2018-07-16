@@ -8,4 +8,9 @@ class BankApp
   def deposit(amount)
     @account += amount
   end
+
+
+  def withdrwal(amount)
+    @account -= amount
+  end
 end
