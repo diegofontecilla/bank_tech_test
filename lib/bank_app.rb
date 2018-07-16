@@ -11,20 +11,24 @@ class BankApp
     credit(amount)
   end
 
-
   def withdrawal(amount)
     if withdrawal_available?(amount)
       @balance -= amount
+      debit(amount)
     else
       withdrawal_not_allowed_message
     end
   end
 
+  private
+
   def credit(amount)
     @operations << {credit: amount, debit: '---', balance: @balance}
   end
 
-  private
+  def debit(amount)
+    @operations << {credit: '---', debit: amount, balance: @balance}
+  end
 
   def withdrawal_available?(amount)
     @balance > amount ? true : false
