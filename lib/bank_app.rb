@@ -1,27 +1,33 @@
 class BankApp
-  attr_reader :account
+  attr_reader :balance, :operations
 
   def initialize
-    @account = 0
+    @balance = 0
+    @operations = []
   end
 
   def deposit(amount)
-    @account += amount
+    @balance += amount
+    credit(amount)
   end
 
 
   def withdrawal(amount)
     if withdrawal_available?(amount)
-      @account -= amount
+      @balance -= amount
     else
       withdrawal_not_allowed_message
     end
   end
 
+  def credit(amount)
+    @operations << {credit: amount, debit: '---', balance: @balance}
+  end
+
   private
 
   def withdrawal_available?(amount)
-    @account > amount ? true : false
+    @balance > amount ? true : false
   end
 
   def withdrawal_not_allowed_message
