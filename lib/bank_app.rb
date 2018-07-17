@@ -20,6 +20,12 @@ class BankApp
     end
   end
 
+  def print_statement
+    @operations.reverse.each do |one_operation|
+      puts "credit: #{one_operation[:credit]} || debit: #{one_operation[:debit]} || balance: #{one_operation[:balance]}"
+    end
+  end
+
   private
 
   def credit(amount)

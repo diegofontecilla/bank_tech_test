@@ -1,6 +1,7 @@
 require 'bank_app'
 
 describe BankApp do
+
   it 'user can make a deposit on her account' do
     bank_app = BankApp.new
     bank_app.deposit(20)
@@ -31,5 +32,18 @@ describe BankApp do
     bank_app.deposit(30)
     bank_app.withdrawal(20)
     expect(bank_app.operations.last).to eq({credit: '---', debit: 20, balance: 10})
+  end
+
+  it 'user can print her bank statement' do
+    bank_app = BankApp.new
+    bank_app.deposit(20)
+    expect {bank_app.print_statement}.to output("credit: 20 || debit: --- || balance: 20\n").to_stdout
+  end
+
+  it 'user can print her bank statement in reverse chronological order' do
+    bank_app = BankApp.new
+    bank_app.deposit(20)
+    bank_app.deposit(2000)
+    expect {bank_app.print_statement}.to output("credit: 2000 || debit: --- || balance: 2020\ncredit: 20 || debit: --- || balance: 20\n").to_stdout
   end
 end
