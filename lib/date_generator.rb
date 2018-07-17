@@ -6,7 +6,7 @@ class DateGenerator
     @current_time = Time.now
   end
 
-  def print_date
-    @current_time.strftime "%d/%m/%Y %H:%M"
-  end
+  # def print_date
+  #   @current_time.strftime "%d/%m/%Y %H:%M"
+  # end
 end

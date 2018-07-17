@@ -21,7 +21,7 @@ describe BankApp do
     expect {bank_app.withdrawal(30)}.to output("Withdrawal not allowed, you dont have the required amount\n").to_stdout
   end
 
-  it 'when user make a deposit will generate a new credit, debit and balance' do
+  it 'when user make a deposit will generate a new date, credit, debit and balance' do
     bank_app = BankApp.new
     bank_app.deposit(20)
     expect(bank_app.operations).to eq([{credit: 20, debit: '---', balance: 20}])
