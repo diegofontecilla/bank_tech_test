@@ -23,7 +23,7 @@ class BankApp
 
   def print_statement
     @operations.reverse.each do |one_operation|
-      puts "credit: #{one_operation[:credit]} || debit: #{one_operation[:debit]} || balance: #{one_operation[:balance]}"
+      puts "date: #{one_operation[:date]} || credit: #{one_operation[:credit]} || debit: #{one_operation[:debit]} || balance: #{one_operation[:balance]}"
     end
   end
 
@@ -34,11 +34,11 @@ class BankApp
   private
 
   def credit(amount)
-    @operations << {credit: amount, debit: '---', balance: @balance}
+    @operations << {date: get_date, credit: amount, debit: '---', balance: @balance}
   end
 
   def debit(amount)
-    @operations << {credit: '---', debit: amount, balance: @balance}
+    @operations << {date: get_date, credit: '---', debit: amount, balance: @balance}
   end
 
   def withdrawal_available?(amount)

@@ -22,29 +22,39 @@ describe BankApp do
   end
 
   it 'when user make a deposit will generate a new date, credit, debit and balance' do
-    bank_app = BankApp.new
+    fake_date_generator = double(:date_generator)
+    allow(fake_date_generator).to receive(:print_date).and_return("18/07/2018 10:14")
+    bank_app = BankApp.new(fake_date_generator)
     bank_app.deposit(20)
-    expect(bank_app.operations).to eq([{credit: 20, debit: '---', balance: 20}])
+    expect(bank_app.operations).to eq([{date: "18/07/2018 10:14", credit: 20, debit: '---', balance: 20}])
   end
 
   it 'when user make a withdrawal will generate a new credit, debit and balance' do
-    bank_app = BankApp.new
+    fake_date_generator = double(:date_generator)
+    allow(fake_date_generator).to receive(:print_date).and_return("18/07/2018 10:14")
+    bank_app = BankApp.new(fake_date_generator)
     bank_app.deposit(30)
     bank_app.withdrawal(20)
-    expect(bank_app.operations.last).to eq({credit: '---', debit: 20, balance: 10})
+    expect(bank_app.operations.last).to eq({date: "18/07/2018 10:14", credit: '---', debit: 20, balance: 10})
   end
 
-  it 'user can print her bank statement' do
-    bank_app = BankApp.new
-    bank_app.deposit(20)
-    expect {bank_app.print_statement}.to output("credit: 20 || debit: --- || balance: 20\n").to_stdout
-  end
+  context '#print_statement' do
+    it 'user can print her bank statement' do
+      fake_date_generator = double(:date_generator)
+      allow(fake_date_generator).to receive(:print_date).and_return("18/07/2018 10:14")
+      bank_app = BankApp.new(fake_date_generator)
+      bank_app.deposit(20)
+      expect {bank_app.print_statement}.to output("date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n").to_stdout
+    end
 
-  it 'user can print her bank statement in reverse chronological order' do
-    bank_app = BankApp.new
-    bank_app.deposit(20)
-    bank_app.deposit(2000)
-    expect {bank_app.print_statement}.to output("credit: 2000 || debit: --- || balance: 2020\ncredit: 20 || debit: --- || balance: 20\n").to_stdout
+    it 'user can print her bank statement in reverse chronological order' do
+      fake_date_generator = double(:date_generator)
+      allow(fake_date_generator).to receive(:print_date).and_return("18/07/2018 10:14")
+      bank_app = BankApp.new(fake_date_generator)
+      bank_app.deposit(20)
+      bank_app.deposit(2000)
+      expect {bank_app.print_statement}.to output("date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2020\ndate: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n").to_stdout
+    end
   end
 
   context '#get_date' do
