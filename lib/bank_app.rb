@@ -1,9 +1,10 @@
 class BankApp
   attr_reader :balance, :operations
 
-  def initialize
+  def initialize(date_generator = DateGenerator.new)
     @balance = 0
     @operations = []
+    @date_generator = date_generator
   end
 
   def deposit(amount)
@@ -24,6 +25,10 @@ class BankApp
     @operations.reverse.each do |one_operation|
       puts "credit: #{one_operation[:credit]} || debit: #{one_operation[:debit]} || balance: #{one_operation[:balance]}"
     end
+  end
+
+  def get_date
+    @date = @date_generator.print_date
   end
 
   private

@@ -46,4 +46,13 @@ describe BankApp do
     bank_app.deposit(2000)
     expect {bank_app.print_statement}.to output("credit: 2000 || debit: --- || balance: 2020\ncredit: 20 || debit: --- || balance: 20\n").to_stdout
   end
+
+  context '#get_date' do
+    it 'print a date' do
+      fake_date_generator = double(:date_generator)
+      allow(fake_date_generator).to receive(:print_date).and_return("18/07/2018 10:14")
+      bank_app = BankApp.new(fake_date_generator)
+      expect(bank_app.get_date).to eq("18/07/2018 10:14")
+    end
+  end
 end
