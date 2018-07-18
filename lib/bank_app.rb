@@ -22,16 +22,17 @@ class BankApp
   end
 
   def print_statement
-    @operations.reverse.each do |one_operation|
-      puts "date: #{one_operation[:date]} || credit: #{one_operation[:credit]} || debit: #{one_operation[:debit]} || balance: #{one_operation[:balance]}"
+    @operations.reverse.each do |op|
+      puts "date: #{op[:date]} || credit: #{op[:credit]} || debit: #{op[:debit]} || \
+balance: #{op[:balance]}"
     end
   end
+
+  private
 
   def get_date
     @date = @date_generator.print_date
   end
-
-  private
 
   def credit(amount)
     @operations << {date: get_date, credit: amount, debit: '---', balance: @balance}
