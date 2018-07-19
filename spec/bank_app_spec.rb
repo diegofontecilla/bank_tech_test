@@ -3,7 +3,7 @@ require 'bank_app'
 describe BankApp do
 
   before :each do
-    allow(fake_date_generator).to receive(:print_date).and_return("18/07/2018 10:14")
+    allow(fake_date_generator).to receive(:format_date).and_return("18/07/2018 10:14")
   end
 
   let(:fake_date_generator) {double(:date_generator)}
@@ -27,25 +27,9 @@ describe BankApp do
     expect {bank_app.withdrawal(30)}.to output(not_allow).to_stdout
   end
 
-  context '#operations' do
-
-    it 'when user make a deposit will generate a new operation' do
-      bank_app_arg.deposit(20)
-      op = {date: "18/07/2018 10:14", credit: 20, debit: '---', balance: 20}
-      expect(bank_app_arg.operations).to eq([op])
-    end
-
-    it 'when user make a withdrawal will generate a new operation' do
-      bank_app_arg.deposit(30)
-      bank_app_arg.withdrawal(20)
-      op = {date: "18/07/2018 10:14", credit: '---', debit: 20, balance: 10}
-      expect(bank_app_arg.operations.last).to eq(op)
-    end
-  end
-
   context '#print_statement' do
 
-    it 'user can print her bank statement' do
+    it 'user can print her bank statement after making a deposit' do
       bank_app_arg.deposit(20)
       op = "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
       expect {bank_app_arg.print_statement}.to output(op).to_stdout
@@ -56,6 +40,14 @@ describe BankApp do
       bank_app_arg.deposit(2000)
       ops = "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2020\n"\
             "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
+      expect {bank_app_arg.print_statement}.to output(ops).to_stdout
+    end
+
+    it 'user can print her bank statement after making a withdrawal' do
+      bank_app_arg.deposit(2000)
+      bank_app_arg.withdrawal(20)
+      ops = "date: 18/07/2018 10:14 || credit: --- || debit: 20 || balance: 1980\n"\
+            "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2000\n"
       expect {bank_app_arg.print_statement}.to output(ops).to_stdout
     end
   end
