@@ -7,8 +7,10 @@ describe BankApp do
   end
 
   let(:fake_date_generator) {double(:date_generator)}
+  let(:fake_statement) {double(:the_statement)}
   subject(:bank_app) { described_class.new }
   subject(:bank_app_arg) { described_class.new(fake_date_generator) }
+  subject(:bank_app_arg_2) { described_class.new(fake_date_generator, fake_statement) }
 
   it 'user can make a deposit on her account' do
     bank_app.deposit(20)
@@ -27,28 +29,10 @@ describe BankApp do
     expect {bank_app.withdrawal(30)}.to output(not_allow).to_stdout
   end
 
-  # context '#print_statement' do
-  #
-  #   it 'user can print her bank statement after making a deposit' do
-  #     bank_app_arg.deposit(20)
-  #     op = "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
-  #     expect {bank_app_arg.print_statement}.to output(op).to_stdout
-  #   end
-  #
-  #   it 'user can print her bank statement in reverse chronological order' do
-  #     bank_app_arg.deposit(20)
-  #     bank_app_arg.deposit(2000)
-  #     ops = "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2020\n"\
-  #           "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
-  #     expect {bank_app_arg.print_statement}.to output(ops).to_stdout
-  #   end
-  #
-  #   it 'user can print her bank statement after making a withdrawal' do
-  #     bank_app_arg.deposit(2000)
-  #     bank_app_arg.withdrawal(20)
-  #     ops = "date: 18/07/2018 10:14 || credit: --- || debit: 20 || balance: 1980\n"\
-  #           "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2000\n"
-  #     expect {bank_app_arg.print_statement}.to output(ops).to_stdout
-  #   end
-  # end
+  it 'user can print her bank statement' do
+    op = "date: 19/07/2018 21:03 || credit: 90000 || debit: --- || balance: 90000"
+    allow(fake_statement).to receive(:print_statement).and_return(op)
+    expect(bank_app_arg_2.get_statement).to eq(op)
+  end
+
 end

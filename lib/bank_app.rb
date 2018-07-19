@@ -21,7 +21,7 @@ class BankApp
       print_withdrawal_not_allowed_message
     end
   end
-# make a test for this method
+
   def get_statement
     @the_statement.print_statement(@operations)
   end
