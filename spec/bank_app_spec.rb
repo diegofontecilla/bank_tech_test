@@ -27,28 +27,28 @@ describe BankApp do
     expect {bank_app.withdrawal(30)}.to output(not_allow).to_stdout
   end
 
-  context '#print_statement' do
-
-    it 'user can print her bank statement after making a deposit' do
-      bank_app_arg.deposit(20)
-      op = "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
-      expect {bank_app_arg.print_statement}.to output(op).to_stdout
-    end
-
-    it 'user can print her bank statement in reverse chronological order' do
-      bank_app_arg.deposit(20)
-      bank_app_arg.deposit(2000)
-      ops = "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2020\n"\
-            "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
-      expect {bank_app_arg.print_statement}.to output(ops).to_stdout
-    end
-
-    it 'user can print her bank statement after making a withdrawal' do
-      bank_app_arg.deposit(2000)
-      bank_app_arg.withdrawal(20)
-      ops = "date: 18/07/2018 10:14 || credit: --- || debit: 20 || balance: 1980\n"\
-            "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2000\n"
-      expect {bank_app_arg.print_statement}.to output(ops).to_stdout
-    end
-  end
+  # context '#print_statement' do
+  #
+  #   it 'user can print her bank statement after making a deposit' do
+  #     bank_app_arg.deposit(20)
+  #     op = "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
+  #     expect {bank_app_arg.print_statement}.to output(op).to_stdout
+  #   end
+  #
+  #   it 'user can print her bank statement in reverse chronological order' do
+  #     bank_app_arg.deposit(20)
+  #     bank_app_arg.deposit(2000)
+  #     ops = "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2020\n"\
+  #           "date: 18/07/2018 10:14 || credit: 20 || debit: --- || balance: 20\n"
+  #     expect {bank_app_arg.print_statement}.to output(ops).to_stdout
+  #   end
+  #
+  #   it 'user can print her bank statement after making a withdrawal' do
+  #     bank_app_arg.deposit(2000)
+  #     bank_app_arg.withdrawal(20)
+  #     ops = "date: 18/07/2018 10:14 || credit: --- || debit: 20 || balance: 1980\n"\
+  #           "date: 18/07/2018 10:14 || credit: 2000 || debit: --- || balance: 2000\n"
+  #     expect {bank_app_arg.print_statement}.to output(ops).to_stdout
+  #   end
+  # end
 end

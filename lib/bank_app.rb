@@ -1,10 +1,11 @@
 class BankApp
   attr_reader :balance
 
-  def initialize(date_generator = DateGenerator.new)
+  def initialize(date_generator = DateGenerator.new, the_statement = TheStatement.new)
     @balance = 0
     @operations = []
     @date_generator = date_generator
+    @the_statement = the_statement
   end
 
   def deposit(amount)
@@ -20,12 +21,9 @@ class BankApp
       print_withdrawal_not_allowed_message
     end
   end
-
-  def print_statement
-    @operations.reverse.each do |op|
-      puts "date: #{op[:date]} || credit: #{op[:credit]} || debit: #{op[:debit]} || \
-balance: #{op[:balance]}"
-    end
+# make a test for this method
+  def get_statement
+    @the_statement.print_statement(@operations)
   end
 
   private
