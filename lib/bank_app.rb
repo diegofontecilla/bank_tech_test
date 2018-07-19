@@ -1,5 +1,5 @@
 class BankApp
-  attr_reader :balance, :operations
+  attr_reader :balance
 
   def initialize(date_generator = DateGenerator.new)
     @balance = 0
@@ -17,7 +17,7 @@ class BankApp
       @balance -= amount
       debit(amount)
     else
-      withdrawal_not_allowed_message
+      print_withdrawal_not_allowed_message
     end
   end
 
@@ -31,7 +31,7 @@ balance: #{op[:balance]}"
   private
 
   def get_date
-    @date = @date_generator.print_date
+    @date = @date_generator.format_date
   end
 
   def credit(amount)
@@ -46,7 +46,7 @@ balance: #{op[:balance]}"
     @balance > amount ? true : false
   end
 
-  def withdrawal_not_allowed_message
+  def print_withdrawal_not_allowed_message
     puts 'Withdrawal not allowed, you dont have the required amount'
   end
 end
