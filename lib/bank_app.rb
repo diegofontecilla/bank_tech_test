@@ -33,11 +33,11 @@ class BankApp
   end
 
   def credit(amount)
-    @operations << {date: get_date, credit: amount, debit: '---', balance: @balance}
+    @operations << {date: get_date, credit: amount, debit:'', balance: @balance}
   end
 
   def debit(amount)
-    @operations << {date: get_date, credit: '---', debit: amount, balance: @balance}
+    @operations << {date: get_date, credit:'', debit: amount, balance: @balance}
   end
 
   def withdrawal_available?(amount)
