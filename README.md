@@ -11,6 +11,8 @@ the terminal.
 
 ## User Stories
 
+Bank app satisfies the following User Stories:
+
 ```
 As a User
 So that I can put some money on my bank account
@@ -28,3 +30,11 @@ As a User
 So that I can see the date, credit, debit and balance account from each of my last operations
 I can print a bank statement
 ```
+
+## Technologies used
+
+- Ruby (2.5.0)
+- Rake (12.3.1)
+- Rspec (3.7.0)
+- Rubocop (0.56.0)
+- Simplecov (0.16.1)
