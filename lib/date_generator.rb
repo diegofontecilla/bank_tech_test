@@ -4,7 +4,7 @@ class DateGenerator
 
   def format_date
     get_time
-    @current_time.strftime "%d/%m/%Y %H:%M"
+    @current_time.strftime "%d/%m/%Y"
   end
 
 private

@@ -1,10 +1,9 @@
 class TheStatement
 
-    def print_statement(operations)
-      operations.reverse.each do |op|
-        puts "date: #{op[:date]} || credit: #{op[:credit]} || debit: #{op[:debit]} || balance: #{op[:balance]}"
-     end
-
+  def print_statement(operations)
+    puts "date || credit || debit || balance"
+    operations.reverse.each do |op|
+      puts "#{op[:date]} || #{op[:credit]} || #{op[:debit]} || #{op[:balance]}"
     end
-
+  end
 end
