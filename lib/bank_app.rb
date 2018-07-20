@@ -33,15 +33,15 @@ class BankApp
   end
 
   def credit(amount)
-    @operations << {date: get_date, credit: amount, debit:'', balance: @balance}
+    @operations << { date: get_date, credit: amount, debit: '', balance: @balance }
   end
 
   def debit(amount)
-    @operations << {date: get_date, credit:'', debit: amount, balance: @balance}
+    @operations << { date: get_date, credit: '', debit: amount, balance: @balance }
   end
 
   def withdrawal_available?(amount)
-    @balance > amount ? true : false
+    @balance > amount
   end
 
   def print_withdrawal_not_allowed_message
